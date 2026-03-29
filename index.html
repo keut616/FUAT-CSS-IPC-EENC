@@ -107,21 +107,42 @@
                     </label>
                     <div>
                         <h4 class="font-bold text-slate-800 text-lg">ນຳເຂົ້າຂໍ້ມູນການປະເມີນ</h4>
-                        <p class="text-sm text-slate-500">ຮອງຮັບໄຟລ໌ .xlsx, .xls, .csv ທີ່ໄດ້ຈາກ KoboToolbox</p>
+                        <p class="text-sm text-slate-500">ຮອງຮັບໄຟລ໌ .xlsx, .xls, .csv ທີ່ໄດ້ຈາກ KoboToolbox ຫລື ນຳໃຊ້ຂໍ້ມູນທີ່ຝັງໄວ້</p>
                     </div>
                 </div>
                 <div class="flex items-center bg-white border border-slate-200 rounded-xl px-5 py-2 shadow-sm min-w-[200px] justify-center md:justify-start">
-                    <span id="fileNameDisplay" class="text-sm font-medium text-slate-400 truncate max-w-[200px] md:max-w-xs">ຍັງບໍ່ມີໄຟລ໌...</span>
+                    <span id="fileNameDisplay" class="text-sm font-medium text-slate-400 truncate max-w-[200px] md:max-w-xs">ກຳລັງກວດສອບຂໍ້ມູນ...</span>
                 </div>
             </div>
 
-            <!-- Filters -->
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="font-bold text-slate-800 flex items-center gap-2 text-lg"><span>🎯</span> ຕົວກັ່ນຕອງຂໍ້ມູນ</h3>
-                <div class="text-sm text-gray-500 font-medium bg-gray-100 px-3 py-1 rounded-full" id="record-count">ລວມ: 0 ລາຍການ</div>
+            <!-- ຄຳແນະນຳວິທີຝັງຂໍ້ມູນ (Embed Data) -->
+            <div class="mt-4 border-t border-slate-100 pt-4 hidden">
+                <button onclick="document.getElementById('embed-instructions').classList.toggle('hidden')" class="text-sm font-semibold text-teal-600 hover:text-teal-800 flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    ເບິ່ງວິທີການຝັງໄຟລ໌ (Embed Data) ເຂົ້າໃນໂຄ້ດ
+                </button>
+                <div id="embed-instructions" class="hidden mt-3 bg-teal-50 border border-teal-100 rounded-xl p-5 text-sm text-slate-700 space-y-3 shadow-inner">
+                    <p class="font-bold text-teal-800 mb-1 text-base">ຂັ້ນຕອນການຝັງຂໍ້ມູນແບບໃໝ່ (ປອດໄພຂຶ້ນ):</p>
+                    <ol class="list-decimal list-inside space-y-2 ml-1 leading-relaxed">
+                        <li>ເປີດໄຟລ໌ <span class="font-semibold text-teal-900">IMAM OPD DATASET.xlsx</span> ຂອງທ່ານໃນ Excel.</li>
+                        <li>ໄປທີ່ <strong>File > Save As</strong> ແລ້ວເລືອກປະເພດໄຟລ໌ເປັນ <strong>CSV (Comma delimited) (*.csv)</strong>.</li>
+                        <li>ໄປທີ່ໂຟນເດີທີ່ທ່ານ Save ໄຟລ໌ນັ້ນໄວ້, ຄລິກຂວາໃສ່ໄຟລ໌ CSV ນັ້ນ > ເລືອກ <strong>Open with</strong> > ເລືອກ <strong>Notepad</strong>.</li>
+                        <li>ຫຼັງຈາກນັ້ນໃຫ້ກົດ <strong class="text-teal-700">Ctrl+A</strong> (ເພື່ອຄອບງຳທັງໝົດ) ແລະ <strong class="text-teal-700">Ctrl+C</strong> (ເພື່ອກັອບປີ້).</li>
+                        <li>ກັບມາທີ່ໂຄດໃນໜ້າຈໍເບື້ອງຂວາມື, ເລື່ອນລົງໄປຫາແຖວທີ່ຂຽນວ່າ: <code class="bg-white px-2 py-1 rounded-md border border-teal-200 text-teal-700 font-mono text-xs">&lt;script type="text/plain" id="embedded-csv"&gt;</code></li>
+                        <li>ໃຫ້ທ່ານວາງຂໍ້ມູນລົງໄປແທນທີ່ຂໍ້ມູນຕົວຢ່າງເກົ່າ (ໃຫ້ຢູ່ລະຫວ່າງແທັກເປີດ ແລະ ແທັກປິດ <code>&lt;/script&gt;</code>).</li>
+                    </ol>
+                </div>
             </div>
+
+        </div>
+
+        <!-- Filters -->
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-slate-800 flex items-center gap-2 text-lg"><span>🎯</span> ຕົວກັ່ນຕອງຂໍ້ມູນ</h3>
+            <div class="text-sm text-gray-500 font-medium bg-gray-100 px-3 py-1 rounded-full" id="record-count">ລວມ: 0 ລາຍການ</div>
+        </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Dropdown 203: ແຂວງ -->
                 <div class="multiselect-container">
                     <label class="block text-sm font-semibold text-slate-600 mb-2">ກະລຸນາເລືອກແຂວງ</label>
@@ -219,11 +240,48 @@
 
     </div>
 
-    <footer class="bg-gray-900 text-white py-12 border-t-8 border-teal-600">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400 text-sm">ບົດລາຍງານສະບັບນີ້ຖືກສ້າງຂຶ້ນຈາກຂໍ້ມູນການສຳຫຼວດພະນັກງານແພດໝໍ ພາຍໃຕ້ໂຄງການ LMCHN.</p>
-        </div>
-    </footer>
+
+<!-- ========================================== -->
+<!-- ຝັງຂໍ້ມູນອັດຕະໂນມັດ (EMBEDDED DATA) ໄວ້ບ່ອນນີ້ -->
+<!-- ແທນທີ່ຂໍ້ມູນເກົ່າທັງໝົດລຸ່ມນີ້ ດ້ວຍຂໍ້ມູນ CSV ຂອງທ່ານ -->
+<!-- ========================================== -->
+<script type="text/plain" id="embedded-csv">
+start,end,ແບບຟອມຕິດຕາມຫຼັງການຝຶກອົບຮົມ,"ຂໍຂອບໃຈທຸກທ່ານສໍາລັບການເຂົ້າຮ່ວມ ການຝຶກອົບຮົມ ທີ່ຜ່ານມາ ເຊິ່ງອໍານວຍຄວາມສະດວກໂດຍ ໂຄງການສ້າງຄວາມເຂັ້ມແຂງ ວຽກງານສຸຂະພາບແມ່ ແລະ ເດັກ ແລະ ໂພຊະນາການ ປະຈຳລາວ (LMCHN)
+
+ມາເຖິງປັດຈຸບັນນີ້, ກໍເຖິງເວລາທີ່ທຸກທ່ານຈະທົບທວນເຖິງປະສົບການຝຶກອົບຮົມທີ່ຜ່ານມາຂອງທ່ານແລ້ວ, ພວກເຮົາສົນໃຈຢາກຮຽນຮູ້ເພີ່ມຕື່ມວ່າ ການຝຶກອົບຮົມດັ່ງກ່າວມີຄວາມກ່ຽວຂ້ອງ ແລະ ເປັນປະໂຫຍດແນວໃດສຳລັບທ່ານ ແລະ ອົງການຈັດຕັ້ງຂອງທ່ານ. ພວກເຮົາຕ້ອງການຂໍ້ມູນຂອງທ່ານ ເພື່ອໃຫ້ພວກເຮົາສາມາດປັບປຸງການຝຶກອົບຮົມໃນອະນາຄົດ ແລະ ຊ່ວຍພັດທະນາການສະໜັບສະໜູນໃນດ້ານອື່ນໆທີ່ຈຳເປັນເພີ່ມເຕີມ. 
+
+ພວກເຮົາຕ້ອງການຖາມທ່ານພຽງສອງສາມຄໍາຖາມ ເຊິ່ງຈະໃຊ້ເວລາປະມານ 10-15 ນາທີເທົ່ານັ້ນ. ຄໍາຕອບຂອງທ່ານຈະຖືກປິດ ເປັນຄວາມລັບ ແລະ ພວກເຮົາຈະບໍ່ໃສ່ຊື່ຂອງທ່ານກັບຄໍາຕອບໃດໆ. ດັ່ງນັ້ນ, ກະລຸນາໃຫ້ຄໍາຕຳນິຕິຊົມຂອງທ່ານໄດ້ຢ່າງກົງໄປກົງມາ.",ກະລຸນາໃຫ້ຂໍ້ມູນຕໍ່ໄປນີ້. ຂໍ້ມູນນີ້ຈະຖືກນໍາໃຊ້ເພື່ອຊ່ວຍໃຫ້ພວກເຮົາແຍກແຍະຂໍ້ມູນໃນລະຫວ່າງການວິເຄາະ ຕາມຄວາມຈຳເປັນເທົ່ານັ້ນ.,201. ຊື່ ແລະ ນາມສະກຸນຂອງທ່ານ,202. ກະລຸນາເລືອກວັນທີ ທີ່ທ່ານກໍາລັງເຮັດການປະເມີນນີ້.,203. ກະລຸນາເລືອກແຂວງຂອງສະຖານທີ່ເຮັດວຽກຂອງທ່ານ.,204. ກະລຸນາເລືອກເມືອງຂອງສະຖານທີ່ເຮັດວຽກຂອງທ່ານ.,205. ກະລຸນາເລືອກວ່າ ບ່ອນເຮັດວຽກຂອງທ່ານແມ່ນ ພະແນກສາທາລະນະສຸກແຂວງ ຫຼື ຫ້ອງການສາທາລະນະສຸກເມືອງ.,206. ກະລຸນາບອກພວກເຮົາວ່າ ທ່ານເປັນເພດຍິງ ຫຼື ຊາຍ.,207. ການຝຶກອົບຮົມລ່າສຸດທີ່ທ່ານເຂົ້າຮ່ວມຈາກອົງການ JSI,Q207. ຖ້າ ອື່ນໆແມ່ນຫຍັງ,1. ທ່ານໄດ້ໄຊ້ ທັກສະ ຫຼື ຄວາມຮູ້ທີ່ໄດ້ຮຽນຈາກ ${Q207option} ເຂົ້າໃນວຽກ ແລະ ຫ້ອງການຂອງທ່ານບໍ?,2. ທ່ານສາມາດໃຫ້ຕົວຢ່າງທີ່ທ່ານນຳໃຊ້ທັກສະ ຫຼື ຄວາມຮູ້ເຫຼົ່ານັ້ນເຂົ້າໃນວຽກຂອງທ່ານ?,3. ທ່ານຄິດວ່າ ເປັນຫຍັງທ່ານຈຶ່ງບໍ່ສາມາດນໍາໃຊ້ທັກສະ ຫຼື ຄວາມຮູ້ເຫຼົ່ານັ້ນ ເຂົ້າໃນວຽກງານ ຫຼື ຢູ່ໃນອົງກອນຂອງທ່ານ?,4. ທ່ານຕ້ອງການ ການສະໜັບສະໜູນອັນໃດ ເພື່ອນຳໃຊ້ທັກສະ ຫຼື ຄວາມຮູ້ເຫຼົ່ານັ້ນເຂົ້າໃນວຽກງານຂອງທ່ານ?,"ກະລຸນາກົດ Submit ເພື່ອສົ່ງຄຳຕອບຂອງທ່ານ. ໃຫ້ທ່ານຖ້າ 10 ວິນາທີ ເພື່ອໃຫ້ຄຳຕອບຂອງທ່ານເຂົ້າລະບົບ ແລະ ກວດເບິ່ງສັນຍານອິນເຕີເນັດຂອງທ່ານກ່ອນສົ່ງ.
+
+ຂໍຂອບໃຈທີ່ທ່ານເສຍສະຫຼະເວລາຕອບແບບສອບຖາມນີ້.",_id,_uuid,_submission_time,_validation_status,_notes,_status,_submitted_by,__version__,_tags,meta/rootUuid,_index
+2026-03-03,2026-03-03,,,,ນຸດ ປີ້ພົມມະຈັກ,2026-03-03,ສະຫວັນນະເຂດ,ອາດສະພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ການກວດທ້ອງ ເກີດລູກ,,ການກວດທ້ອງ,,753284009,f8e5377d-8b01-4560-8fca-3620fbfb3ccb,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:f8e5377d-8b01-4560-8fca-3620fbfb3ccb,97
+2025-11-10,2026-03-03,,,,ຄຳພູວັນ ທອງສະຫວັດ,2026-03-03,ສະຫວັນນະເຂດ,ຈຳພອນ,ຫ້ອງການສາທາລະນະສຸກເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,"1.ວຽກງານແມ່ແລະເດັກ
+2. ສຸຂະພາບເດັກ ໂພຊະນາການ
+3.ດູແລການເກີດ 
+4.ດູແລເດັກແດງ 
+5.ການກວດກາແບບຟອມ ແລະ ແນະນຳ ຂັ້ນຕອນຕາມສະເຕັບ",,"ມີການຝຶກອົບຮົມ ເພີ່ມຕື່ມ
+ມີການລົງຕິດຕາມຊຸກຍູ້ສຸກສາລາ
+ຄຽງຄູ່ເປັນປະຈຳທຸກໆສາມເດືອນຕໍ່ຄັ້ງ",,753300564,db24f286-6152-4ca0-8a4c-affae47f20a4,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:db24f286-6152-4ca0-8a4c-affae47f20a4,98
+2026-03-03,2026-03-03,,,,ນາງມະນີວັນແກ້ວມະນີວົງ,2026-03-03,ສະຫວັນນະເຂດ,ຈຳພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ການເກີດລູກທີ່ປອດໄຟດູແລະເດັກເກີດໄໝ່,,ນຳໃຊ້ທັກສະທີ່ອົບຮົມມາໄປປະຕິບັດ,,753307199,c8e12c5d-2db5-45a5-b4c7-574c1d24e621,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:ef1252a5-8b96-4572-bd75-0d9e4bbfd62e,99
+2026-03-03,2026-03-03,,,,Sonephet phetkoson,2026-03-03,ສະຫວັນນະເຂດ,ໄກສອນພົມວິຫານ,ພະແນກສາທາລະນະສຸກແຂວງ,ເພດຊາຍ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,"1.ເພາະຄວາມຮູ້ທີ່ໄດ້ມາມັນຕິດພັນກັບໜ້າວຽກ
+2.ການເຮັດວຽກປະຈຸບັນ ແມ່ນພົວພັນກັບຕົວຊີ້ວັດ ແລະຂໍມູນແມ່ນມີຄວາມຈໍາເປັນຫາຍໃນການຕັດສິນໃຈ,ວາງແຜນ ແລະຢັ້ງຢືນໄດ້ເຖີງສໍາເລັດ",,"1.ການຕິດຕາມຊຸກຍູ້ດ້ານວິຊາການຕື່ມ
+2.ສ້າງທີມວິຊາການເພີມ",,753310423,39bd909a-7be4-45b0-8418-688600661375,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:39bd909a-7be4-45b0-8418-688600661375,100
+2026-03-03,2026-03-03,,,,ນາງສົມໃຈອິນສີຊຽງໃໜ່,2026-03-03,ສະຫວັນນະເຂດ,ຈຳພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ວຽກງານການປະເມີນເດັກດີເດັກຂາດສານອາຫານປານກາງແລະເດັກຂາດສານອາຫານຮ້າຍແຮງ,,ຢາກໃຫ້ທັງໂຄງການລົງມາຕິດຕາມຊຸກຍູ້ທຸກໆ3ເດຶອນ,,753320956,62d7345f-c133-4ee2-aed5-812598878fec,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:b251b289-33f9-46bb-9cbc-d79a514b7fe9,101
+2026-03-03,2026-03-03,,,,ຄອນສະຫວັນ ມະນີສວນ,2026-03-03,ສະຫວັນນະເຂດ,ຈຳພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ການທັກທາຍສະບາຍດີ ສອບຖາມປະຫວັດ ການກວດກາຮ່າງກາຍ ແລະ ການແນະນຳໃຫ້ສຸຂະສຸກສາ ຫລັງກວດກາຮ່າງກາຍຄົນເຈັບ,,ຢາກເຮັດອົບຮົມໃຫ້ແກ່ພະນັກງານໃຫ້ໂຮງຫມໍເຮົາໃຫ້ເຕີ່ມອີກ,,753321351,6e8b81a4-471f-4fdb-b1bb-9ca297eaa997,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:1dc37eb8-2f2b-4989-ac94-85735ddcd4ce,102
+2026-03-03,2026-03-04,,,,ນາງສົມຮັກ ຜອງວິໄລ,2026-03-03,ສະຫວັນນະເຂດ,ອາດສະພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,"ໃຊ້ໃນການປີນຜົວ
+ໃຊ້ໃນໃນເຈັບມາຝາກທ້ອງ
+ເຊັ່ນປະໃນການຝາກໃຫ້ທ້ອງ
+ໃນການເກີດລູກ
+ເກີດເດັກດີ",,ບໍ່ຕ້ອງການຍັງ,,753340693,31a48587-1c06-4eb6-b0a5-3e85ca4d5f08,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:9c75a1ca-10cb-475f-b018-8daaa6ea5f3d,103
+2026-03-03,2026-03-03,,,,ນາງພອນທິບງາມວິໄລ,2026-03-03,ສະຫວັນນະເຂດ,ອາດສະພອນ,ຫ້ອງການສາທາລະນະສຸກເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ການກວດທອງ,,ໂປສະເຕີ້,,753342818,60aef28b-040d-479a-9c1d-c662ef326851,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:8c243606-f8dd-42a9-ace3-d077333ade61,104
+2026-03-03,2026-03-03,,,,ນ ຕຸນມະນີ ດວງຄຳໄຂ,2026-03-03,ສະຫວັນນະເຂດ,ອາດສະພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ການທັກທາຍແບບເປັນມິດກັບຄົນເຈັບ.ທັກສະການກັນກອງແມ່ສຽ່ງໄພແລະການກວດທ້ອງ.ກວດຊ່ອງຄອດ.ຂະບວນການເກີດລູກທຳມະຊາດ ແລະການດູແລທີ່ຈຳເປັນສຳລັບເດັກເກີດໃໝ່,,ຂ໌ແຫ່ລງທຶນອີກຕ່ໄປ ເພື່ອຮົບຮົມແລະລົງຕິດຕາມປະເມີນ ການປະບັດວຽກທີ່ໄດ້ອົບມາ ຕາມແຕ່ລະໄດມາດ ຢ່າງຕ໌່ເນື່ອງ,,753348288,332e9e81-5094-49df-941b-aea421d6d45c,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:332e9e81-5094-49df-941b-aea421d6d45c,105
+2026-03-03,2026-03-03,,,,ນາງ ໂຈມສີ ງາມວິໄລ,2026-03-03,ສະຫວັນນະເຂດ,ອາດສະພອນ,ຫ້ອງການສາທາລະນະສຸກເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ໄດ້ໄຊ້ລົງຕິດຕາມສຸກສາລາ,,ຕ້ອງການຢາກໄຫ້ມີການຟຶກອົບຮົມໃຫ້ແລະມີການຕິດຕາມສຸກສາລາທີ່ຍັງບໍທັນໄດ້ຮັບການຕິດຕາມ,,753356270,1a366a0d-0a88-46c0-886b-ccb3eecb8bb5,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:00ff71d5-b65a-47b7-9dd9-3aa7f77da14a,106
+2026-03-03,2026-03-03,,,,ນ.ພິລາວັນ ອິນສີຊຽງໃຫ່ມ,2026-03-03,ສະຫວັນນະເຂດ,ຈຳພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,ເເມ່ນໃຊ້ປະຈຳ,,ຕ້ອງການໃຫ້ມີການຮົບຮົມເລື້ອຍໆ,,753365399,6fd70243-868a-498d-9d5a-3eca3fd42fe6,2026-03-03,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:aaf08468-afb8-4493-92f7-e4c30cdefa0e,107
+2026-03-04,2026-03-05,,,,ນ.ເພັດສະໄໝ ໄຊຍະວົງສາ,2026-03-04,ສະຫວັນນະເຂດ,ຈຳພອນ,ໂຮງໝໍເມືອງ,ເພດຍິງ,ອື່ນໆ,CSS IPC EENC,ໄດ້ໃຊ້,"1)ທັກສະ.ການມິດແບບກັນເອງ..ໃນເວລາທີ່.ຄົນເຈັບ.ມາຮັບບໍລິການ
+2)ທັກສະໃນການຊອກຫາແມ່ສ່ວງໄພ
+3)ທັກສະໃນການຊ່ວຍເກີດລິກ.ໃນທ່ສປົກກະຕິ",,ຂໍແຫ່ລງທືນ.ອົບຮົມ..ແລະລົງຕິດຕາມ.ປະເມີນຜົນ..ຢູ່ສຸກສາລາ,,753615957,bcc88efb-2f7c-4598-a63a-9d385981b982,2026-03-04,,,submitted_via_web,,v8cP8pw8pq6pWXGU3JvG7p,,uuid:48634229-a228-4e38-a204-a7bf9971879e,117
+</script>
+<!-- ========================================== -->
+
 
     <script>
         let rawData = [];
@@ -251,6 +309,32 @@
             const loader = document.getElementById('loading-overlay');
             if (loader) loader.style.display = show ? 'flex' : 'none';
         };
+
+        // ກວດສອບ Embedded Data ຕອນເປີດໜ້າເວັບ (ແບບໃໝ່ປອດໄພກວ່າດ້ວຍ script type="text/plain")
+        document.addEventListener('DOMContentLoaded', () => {
+            const csvElement = document.getElementById('embedded-csv');
+            const embeddedCSVData = csvElement ? (csvElement.textContent || csvElement.innerText || "").trim() : "";
+            const display = document.getElementById('fileNameDisplay');
+
+            if (embeddedCSVData.length > 0) {
+                if (display) {
+                    display.innerText = "ນຳໃຊ້ຂໍ້ມູນທີ່ຝັງໄວ້ (Embedded CSV)";
+                    display.classList.remove('text-slate-400');
+                    display.classList.add('text-teal-700', 'font-bold');
+                }
+                Papa.parse(embeddedCSVData, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        processData(results.data);
+                    }
+                });
+            } else {
+                if (display) {
+                    display.innerText = "ກະລຸນາເລືອກໄຟລ໌ (ບໍ່ມີຂໍ້ມູນຝັງໄວ້)";
+                }
+            }
+        });
 
         // --- File Upload & Parsing ---
         window.handleFileUploadCustom = function(event) {
@@ -304,14 +388,26 @@
 
             const keys = Object.keys(data[0]);
             
-            const idKey = keys.find(k => k === "_id" || k === "_uuid" || k.toLowerCase().includes("id")) || keys[0];
-            const provKey = keys.find(k => k.includes("203."));
-            const distKey = keys.find(k => k.includes("204."));
-            const genderKey = keys.find(k => k.includes("206."));
-            const q1Key = keys.find(k => k.includes("1. ທ່ານໄດ້") || k.match(/(?:^|\s)1\./));
-            const q2Key = keys.find(k => k.includes("2. ທ່ານສາມາດ") || k.match(/(?:^|\s)2\./));
-            const q3Key = keys.find(k => k.includes("3. ທ່ານຄິດວ່າ") || k.match(/(?:^|\s)3\./));
-            const q4Key = keys.find(k => k.includes("4. ທ່ານຕ້ອງ") || k.match(/(?:^|\s)4\./));
+            // ປັບປຸງລະບົບຄົ້ນຫາຫົວຂໍ້ຖັນ (Headers) ໃຫ້ສະຫຼາດຂຶ້ນ ເພື່ອປ້ອງກັນການຫາບໍ່ເຫັນເມື່ອ Export ຕ່າງກັນ
+            const findKey = (keywords) => keys.find(k => keywords.some(word => k.toLowerCase().includes(word.toLowerCase())));
+            
+            const idKey = findKey(["_id", "_uuid", "id"]) || keys[0];
+            const provKey = findKey(["203", "ແຂວງ", "province"]);
+            const distKey = findKey(["204", "ເມືອງ", "district"]);
+            const genderKey = findKey(["206", "ເພດ", "gender"]);
+            
+            // ແກ້ໄຂຈຸດທີ່ຜິດພາດ: ປ່ຽນຈາກ "1.", "2." ມາເປັນ "1. ທ່ານ", "2. ທ່ານ" 
+            // ເພື່ອບໍ່ໃຫ້ໄປຊ້ຳຊ້ອນກັບຫົວຂໍ້ 202. (ວັນທີ), 203. (ແຂວງ), 204. (ເມືອງ)
+            const q1Key = findKey(["1. ທ່ານ", "1_"]);
+            const q2Key = findKey(["2. ທ່ານ", "2_"]);
+            const q3Key = findKey(["3. ທ່ານ", "3_"]);
+            const q4Key = findKey(["4. ທ່ານ", "4_"]);
+
+            if (!provKey || !distKey) {
+                alert("ລະບົບບໍ່ສາມາດອ່ານຂໍ້ມູນ 'ແຂວງ' ຫຼື 'ເມືອງ' ໄດ້. ກະລຸນາກວດສອບຫົວຂໍ້ຖັນໃນໄຟລ໌ CSV ຂອງທ່ານວ່າຖືກຕ້ອງຫຼືບໍ່.");
+                toggleLoader(false);
+                return;
+            }
 
             rawData = data.map((row, index) => ({
                 _id: row[idKey] ? String(row[idKey]).trim() : `REC-${index+1}`,
@@ -326,7 +422,7 @@
             })).filter(r => r.province || r.district);
 
             if (rawData.length === 0) {
-                alert("ບໍ່ພົບຂໍ້ມູນແຂວງ/ເມືອງ ໃນໄຟລ໌");
+                alert("ບໍ່ພົບຂໍ້ມູນແຂວງ/ເມືອງ ໃນໄຟລ໌ ຫຼື ຂໍ້ມູນຫວ່າງເປົ່າ");
                 toggleLoader(false);
                 return;
             }
@@ -470,9 +566,9 @@
                 return;
             }
 
-            // 4 ກຸ່ມຫຼັກຕາມທີ່ໄດ້ສະເໜີ
+            // 4 ກຸ່ມຫຼັກຕາມທີ່ໄດ້ສະເໜີ (ແກ້ໄຂ Regex ເພື່ອປ້ອງກັນການຈັບຄຳຜິດ ເຊັ່ນ ຄຳວ່າ "ແມ່ນ")
             const groups = [
-                { id: 'mch', title: 'ເຕັກນິກທາງດ້ານການແພດ-ການດູແລສຸຂະພາບແມ່ ແລະ ເດັກ', icon: '🩺', color: 'teal', regex: /ກວດ|ທ້ອງ|ແມ່|ຊ່ອງຄອດ|anc|ຝາກ|ເກີດ|ຄອດ|ທຳມະຊາດ|ທາງນັ່ງ|ມົດລູກ|ເດັກ|eenc|ຟື້ນ|ເຊີດຊູ|ໃໝ່|ລູກ|ສາຍແຮ່|ອະນາໄມ|ເລືອດ/i, items: [] },
+                { id: 'mch', title: 'ເຕັກນິກທາງດ້ານການແພດ-ການດູແລສຸຂະພາບແມ່ ແລະ ເດັກ', icon: '🩺', color: 'teal', regex: /ກວດ|ທ້ອງ|ແມ່ຍິງ|ແມ່ມານ|ຊ່ອງຄອດ|anc|ຝາກ|ເກີດ|ຄອດ|ທຳມະຊາດ|ທາງນັ່ງ|ມົດລູກ|ເດັກ|eenc|ຟື້ນ|ເຊີດຊູ|ເກີດໃໝ່|ລູກ|ສາຍແຮ່|ອະນາໄມ|ເລືອດ/i, items: [] },
                 { id: 'capacity', title: 'ການສ້າງຂີດຄວາມສາມາດຕໍ່ ໃຫ້ຄູ່ຮ່ວມງານ', icon: '🎓', color: 'blue', regex: /ສອນ|ຖ່າຍທອດ|ແນະນຳ|ຝຶກ|ອົບຮົມ|ພະນັກງານ|ໝູ່|ເພື່ອນ|ບອກ/i, items: [] },
                 { id: 'monitor', title: 'ການລົງຕິດຕາມ ແລະ ຊຸກຍູ້', icon: '📋', color: 'purple', regex: /ຕິດຕາມ|ລົງ|ສຸກສາລາ|ໂຮງໝໍ|ຊຸກຍູ້|ປະເມີນ|ກວດກາ/i, items: [] },
                 { id: 'other', title: 'ອື່ນໆ', icon: '📝', color: 'slate', regex: /.*/, items: [] }
